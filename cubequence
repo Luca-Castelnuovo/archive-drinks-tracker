@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use CQ\CLI\CLI;
+
+$cli = new CLI();
+
+$cli->command('demo', [new App\Commands\Demo(), 'demo'])
+    ->descriptions('Demo command');
+
+$cli->command('app:key', [new CQ\CLI\App(), 'key'])
+    ->descriptions('Generate app key used for encryption');
+
+$cli->command('db:migrate [--fresh]', [new CQ\CLI\DB(), 'migrate'])
+    ->descriptions('Migrate database tables', [
+        '--fresh' => 'Reset DB before running migrations',
+    ]);
+
+$cli->command('db:seed', [new CQ\CLI\DB(), 'seed'])
+    ->descriptions('Seed database tables');
+
+$cli->command('make:migration [name]', [new CQ\CLI\Make(), 'migration'])
+    ->descriptions('Create database migration', [
+        'name' => 'Name of migration e.g. (CreateUsersTable)',
+    ]);
+
+$cli->command('make:seed name', [new CQ\CLI\Make(), 'seed'])
+    ->descriptions('Create database seeder', [
+        'name' => 'Name of seeder e.g. (UsersSeeder)',
+    ]);
+
+$cli->run();
