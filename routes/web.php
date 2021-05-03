@@ -34,6 +34,7 @@ $middleware->create(['prefix' => '/auth'], function () use ($route, $middleware)
 
 $middleware->create(['middleware' => [AuthMiddleware::class]], function () use ($route) {
     $route->get('/dashboard', [UserController::class, 'dashboard']);
+    $route->get('/authkey', [UserController::class, 'createAuthKey']);
 });
 
 $middleware->create(['middleware' => [AuthKeyMiddleware::class]], function () use ($route, $middleware) {

@@ -6,8 +6,11 @@ namespace App\Controllers;
 
 use CQ\DB\DB;
 use CQ\Controllers\Controller;
+use CQ\Crypto\Token;
 use CQ\Helpers\AuthHelper;
+use CQ\Helpers\ConfigHelper;
 use CQ\Response\HtmlResponse;
+use CQ\Response\JsonResponse;
 use CQ\Response\Respond;
 
 final class UserController extends Controller
@@ -27,11 +30,28 @@ final class UserController extends Controller
             ]
         ]);
 
+        // group output by 24hour intervals
+
         return Respond::twig(
             view: 'dashboard.twig',
             parameters: [
                 "drinks" => $drinks
             ]
+        );
+    }
+
+    public function createAuthKey(): JsonResponse
+    {
+        $authKey = Token::create(
+            key: ConfigHelper::get('app.key'),
+            data: [
+                'user_id' => AuthHelper::getUser()->getId(),
+            ]
+        );
+
+        return Respond::prettyJson(
+            message: 'authKey created successfully',
+            data: $authKey
         );
     }
 }
