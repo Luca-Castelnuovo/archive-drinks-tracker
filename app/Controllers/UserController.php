@@ -21,7 +21,10 @@ final class UserController extends Controller
             'type',
             'created_at',
         ], [
-            'user_id' => AuthHelper::getUser()->getId()
+            'user_id' => AuthHelper::getUser()->getId(),
+            'ORDER' => [
+                'created_at' => 'DESC'
+            ]
         ]);
 
         return Respond::twig(
