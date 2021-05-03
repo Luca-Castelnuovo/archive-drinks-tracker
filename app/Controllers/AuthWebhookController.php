@@ -15,7 +15,7 @@ final class AuthWebhookController extends CQAuthWebhookController
     protected function deleteSteps(string $userId): void
     {
         DB::delete(
-            table: 'example',
+            table: 'drinks',
             where: [
                 'user_id' => $userId
             ]
