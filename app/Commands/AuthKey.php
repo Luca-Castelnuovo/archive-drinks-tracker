@@ -32,7 +32,7 @@ class AuthKey
             return;
         }
 
-        $io->success(message: 'Auth key created successfully');
+        $io->success(message: 'authKey created successfully');
         $io->text(message: $authKey);
     }
 }
