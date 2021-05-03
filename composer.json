@@ -1,6 +1,6 @@
 {
-    "name": "cubequence/cubequence",
-    "description": "The CubeQuence Framework",
+    "name": "luca-castelnuovo/drinkstracker",
+    "description": "Track drinks",
     "keywords": [
         "cubequence"
     ],
@@ -37,7 +37,7 @@
         ]
     },
     "support": {
-        "issues": "https://github.com/CubeQuence/CubeQuence/issues",
-        "source": "https://github.com/CubeQuence/CubeQuence"
+        "issues": "https://github.com/Luca-Castelnuovo/DrinksTracker/issues",
+        "source": "https://github.com/Luca-Castelnuovo/DrinksTracker"
     }
 }

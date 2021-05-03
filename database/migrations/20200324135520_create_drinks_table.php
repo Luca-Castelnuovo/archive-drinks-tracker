@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use CQ\DB\Migration;
 
-class CreateExampleTable extends Migration
+class CreateDrinksTable extends Migration
 {
     /**
      * Change Method.
@@ -33,13 +33,12 @@ class CreateExampleTable extends Migration
      */
     public function change(): void
     {
-        $example = $this->table('example', ['id' => false, 'primary_key' => 'id']);
-        $example->addColumn('id', 'uuid')
+        $drinks = $this->table('drinks', ['id' => false, 'primary_key' => 'id']);
+        $drinks->addColumn('id', 'uuid')
             ->addColumn('user_id', 'uuid')
-            ->addColumn('string', 'string', ['limit' => 2048, 'null' => false])
+            ->addColumn('type', 'string', ['limit' => 128, 'null' => false])
             ->addColumn('updated_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
-            ->create()
-        ;
+            ->create();
     }
 }

@@ -7,9 +7,6 @@ use CQ\CLI\CLI;
 
 $cli = new CLI();
 
-$cli->command('demo', [new App\Commands\Demo(), 'demo'])
-    ->descriptions('Demo command');
-
 $cli->command('app:key', [new CQ\CLI\App(), 'key'])
     ->descriptions('Generate app key used for encryption');
 
@@ -29,6 +26,11 @@ $cli->command('make:migration [name]', [new CQ\CLI\Make(), 'migration'])
 $cli->command('make:seed name', [new CQ\CLI\Make(), 'seed'])
     ->descriptions('Create database seeder', [
         'name' => 'Name of seeder e.g. (UsersSeeder)',
+    ]);
+
+$cli->command('authKey:create userId', [new App\Commands\AuthKey(), 'create'])
+    ->descriptions('Create authKey for authKeyMiddleware', [
+        'userId' => 'UserId to couple to authKey',
     ]);
 
 $cli->run();

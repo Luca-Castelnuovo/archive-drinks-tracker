@@ -1,8 +1,23 @@
 {% extends "partials/base.twig" %}
-{% set title = "CubeQuence" %}
-{% set page_script = "/assets/js/dashboard.js" %}
+{% set title = "Dashboard" %}
 
 {% block content %}
-<h3>CubeQuence Dashboard!</h3>
-<img src="/assets/images/logo.png" alt="Logo">
+<div class="row">
+    <ul class="collection with-header">
+        <li class="collection-header">
+            <h2>Drinks</h2>
+        {% if not drinks %}
+            <li class="collection-item">
+                <div>
+                    No drinks found!
+                </div>
+            </li>
+        {% endif %}
+        {% for drink in drinks %}
+            <li class="collection-item">
+                <p>Type: {{ drink.type }}, Created at: {{ drink.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

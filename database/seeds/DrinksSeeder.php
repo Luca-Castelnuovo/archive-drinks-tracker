@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use CQ\DB\Seeder;
 
-class ExampleSeeder extends Seeder
+class DrinksSeeder extends Seeder
 {
     /**
      * Run Method.
@@ -23,12 +23,12 @@ class ExampleSeeder extends Seeder
             $data[] = [
                 'id' => $faker->uuid,
                 'user_id' => $faker->uuid,
-                'string' => $faker->sentence,
+                'type' => 'Bier',
                 'updated_at' => date('Y-m-d H:i:s'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
         }
 
-        $this->table('example')->insert($data)->saveData();
+        $this->table('drinks')->insert($data)->saveData();
     }
 }
