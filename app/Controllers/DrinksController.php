@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Models\Drink;
 use App\Validators\DrinksValidator;
 use CQ\Controllers\Controller;
 use CQ\DB\DB;
@@ -13,6 +14,24 @@ use CQ\Response\Respond;
 
 final class DrinksController extends Controller
 {
+    /**
+     * Show drinks
+     */
+    public function index(): JsonResponse
+    {
+        return Respond::prettyJson(
+            message: 'Drinks',
+            data: [
+                'count' => Drink::getCount(
+                    userId: $this->request->authKeyUserId
+                ),
+                'last' => Drink::getLast(
+                    userId: $this->request->authKeyUserId
+                ),
+            ]
+        );
+    }
+
     /**
      * Create drink.
      */

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use CQ\DB\DB;
+use App\Models\Drink;
 use CQ\Controllers\Controller;
 use CQ\Crypto\Token;
 use CQ\Helpers\AuthHelper;
@@ -18,24 +18,22 @@ final class UserController extends Controller
     /**
      * Dashboard screen.
      */
-    public function dashboard(): HtmlResponse
+    public function dashboard(): HtmlResponse|JsonResponse
     {
-        $drinks = DB::select('drinks', [
-            'type',
-            'created_at',
-        ], [
-            'user_id' => AuthHelper::getUser()->getId(),
-            'ORDER' => [
-                'created_at' => 'DESC'
-            ]
-        ]);
-
-        // group output by 24hour intervals
+        $userId = AuthHelper::getUser()->getId();
 
         return Respond::twig(
             view: 'dashboard.twig',
             parameters: [
-                "drinks" => $drinks
+                'drinks' => Drink::get(
+                    userId: $userId
+                ),
+                'count' => Drink::getCount(
+                    userId: $userId
+                ),
+                'last' => Drink::getLast(
+                    userId: $userId
+                ),
             ]
         );
     }

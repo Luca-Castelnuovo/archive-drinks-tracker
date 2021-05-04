@@ -37,8 +37,10 @@ $middleware->create(['middleware' => [AuthMiddleware::class]], static function (
     $route->get('/authkey', [UserController::class, 'createAuthKey']);
 });
 
-$middleware->create(['middleware' => [AuthKeyMiddleware::class]], static function () use ($route, $middleware): void {
+$middleware->create(['prefix' => '/api', 'middleware' => [AuthKeyMiddleware::class]], static function () use ($route, $middleware): void {
+    $route->get('', [DrinksController::class, 'index']);
+
     $middleware->create(['middleware' => [JsonMiddleware::class]], static function () use ($route): void {
-        $route->post('/submit', [DrinksController::class, 'create']);
+        $route->post('', [DrinksController::class, 'create']);
     });
 });
