@@ -28,6 +28,9 @@ final class DrinksController extends Controller
                 'last' => Drink::getLast(
                     userId: $this->request->authKeyUserId
                 ),
+                'drinks' => Drink::get(
+                    userId: $this->request->authKeyUserId
+                )
             ]
         );
     }

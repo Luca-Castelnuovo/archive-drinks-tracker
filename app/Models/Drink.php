@@ -23,9 +23,7 @@ final class Drink
             ],
         ]);
 
-        $currDay = null;
         $drinks = [];
-        $drinksCounter = -1;
 
         foreach ($drinksDB as $drink) {
             $day = date(
@@ -33,17 +31,14 @@ final class Drink
                 timestamp: strtotime(datetime: $drink['created_at'])
             );
 
-            if ($currDay !== $day) {
-                $currDay = $day;
-                $drinksCounter++;
-            }
-
-            if (array_key_exists(key: $drinksCounter, array: $drinks)) {
-                array_push($drinks[$drinksCounter], $drink);
+            if (!array_key_exists(key: $day, array: $drinks)) {
+                $drinks[$day] = [
+                    $drink
+                ];
                 continue;
             }
 
-            array_push($drinks, [$drink]);
+            array_push($drinks[$day], $drink);
         }
 
         return $drinks;
