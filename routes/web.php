@@ -34,7 +34,7 @@ $middleware->create(['prefix' => '/auth'], static function () use ($route, $midd
 
 $middleware->create(['middleware' => [AuthMiddleware::class]], static function () use ($route): void {
     $route->get('/dashboard', [UserController::class, 'dashboard']);
-    $route->get('/authkey', [UserController::class, 'createAuthKey']);
+    $route->get('/installation', [UserController::class, 'installation']);
 });
 
 $middleware->create(['prefix' => '/api', 'middleware' => [AuthKeyMiddleware::class]], static function () use ($route, $middleware): void {
