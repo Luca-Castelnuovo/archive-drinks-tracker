@@ -50,12 +50,6 @@ new Chart(ctxEntries, {
                     stepSize: 1
                 }
             }
-        },
-        plugins: {
-            title: {
-                display: true,
-                text: 'All Entries'
-            }
         }
     }
 });
