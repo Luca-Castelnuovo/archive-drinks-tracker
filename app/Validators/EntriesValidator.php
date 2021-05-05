@@ -7,7 +7,7 @@ namespace App\Validators;
 use CQ\Validators\Validator;
 use Respect\Validation\Validator as v;
 
-final class DrinksValidator extends Validator
+final class EntriesValidator extends Validator
 {
     /**
      * Validate json submission.
@@ -15,10 +15,10 @@ final class DrinksValidator extends Validator
     public static function create(object $data): void
     {
         $v = v::attribute('type', v::oneOf(
-            v::equals('Water'),
-            v::equals('Bier'),
-            v::equals('Shot'),
-            v::equals('Barf')
+            v::equals('water'),
+            v::equals('bier'),
+            v::equals('shot'),
+            v::equals('barf')
         ));
 
         self::validate($v, $data);

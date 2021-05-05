@@ -1,51 +1,114 @@
-console.log(_drinks)
+const labels = {
+    Water: '#2CC990',
+    Bier: '#EEE657',
+    Shot: '#FCB941',
+    Barf: '#FC6042'
+};
 
-const ctx = document.getElementById('drinksGraph').getContext('2d');
+const ctxCount = document.getElementById('countGraph').getContext('2d');4
+new Chart(ctxCount, {
+    type: 'doughnut',
+    data: {
+        labels: [...Object.keys(labels)],
+        datasets: [
+            {
+                data: [...Object.values(_count)],
+                backgroundColor: [...Object.values(labels)],
+                hoverOffset: 4
+            }
+        ]
+    }
+});
 
-const drinkDay = _drinks[1];
-const labels = drinkDay.map(drink => drink.created_at);
-const types = drinkDay.map(drink => drink.type);
 
-console.log(labels);
+const data = [
+    {
+        "water": 0,
+        "x": 5,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:02"
+    },
+    {
+        "water": 0,
+        "x": 6,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:03"
+    },
+    {
+        "water": 0,
+        "x": 4,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:04"
+    },
+    {
+        "water": 0,
+        "x": 2,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:05"
+    }, {
+        "water": 0,
+        "x": 3,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:06"
+    }, {
+        "water": 0,
+        "x": 1,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:07"
+    }, {
+        "water": 2,
+        "x": 6,
+        "shot": 1,
+        "barf": 0,
+        "y": "16:14"
+    }, {
+        "water": 2,
+        "x": 6,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:14"
+    }, {
+        "water": 1,
+        "x": 6,
+        "shot": 0,
+        "barf": 0,
+        "y": "16:14"
+    }
+];
 
-const data = {
-    labels: labels,
+const data2 = [
+    1, 2, 3
+];
+
+console.log(data);
+
+const ctxEntries = document.getElementById('entriesGraph').getContext('2d');
+const dataEntries = {
+    labels: ['Jan', 'Feb', 'mar'],
     datasets: [
-        // {
-        //     label: 'Glazen Water',
-        //     data: [
-        //         1, 2
-        //     ],
-        //     borderColor: 'rgb(100, 192, 192)',
-        //     tension: 0.1
-        // },
-        // {
-        //     label: 'Glazen Bier',
-        //     data: [
-        //         1, 2
-        //     ],
-        //     borderColor: 'rgb(75, 192, 192)',
-        //     tension: 0.1
-        // },
-        // {
-        //     label: 'Shotjes',
-        //     data: [
-        //         1, 4
-        //     ],
-        //     borderColor: 'rgb(50, 192, 192)',
-        //     tension: 0.1
-        // },
         {
-            label: 'Barfjes',
-            data: [
-                1, 2
-            ],
-            // borderColor: 'rgb(75, 192, 192)',
+            label: 'Watertjes',
+            data: data2,
+            // parsing: {
+            //     xAxisKey: 'water',
+            //     yAxisKey: 'created_at'
+            // },
+            // parsing: {
+            //     yAxisKey: 'net'
+            // },
+            borderColor: labels.Water,
+            backgroundColor: labels.Water,
             tension: 0.1
         }
     ]
 };
-new Chart(ctx, {
+new Chart(ctxEntries, {
     type: 'line',
-    data: data
+    data: dataEntries,
 });

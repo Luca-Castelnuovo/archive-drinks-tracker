@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\Drink;
+use App\Models\EntryModel;
+use App\Models\UserModel;
 use CQ\Controllers\Controller;
 use CQ\Crypto\Token;
 use CQ\Helpers\AuthHelper;
@@ -24,15 +25,16 @@ final class UserController extends Controller
         return Respond::twig(
             view: 'dashboard.twig',
             parameters: [
-                'drinks' => Drink::get(
+                'count' => UserModel::getCount(
                     userId: $userId
                 ),
-                'count' => Drink::getCount(
+                'last' => UserModel::getLast(
                     userId: $userId
                 ),
-                'last' => Drink::getLast(
-                    userId: $userId
-                ),
+                'entries' => EntryModel::getOnDay(
+                    userId: $userId,
+                    date: date('Y-m-d')
+                )
             ]
         );
     }

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\AuthWebhookController;
-use App\Controllers\DrinksController;
+use App\Controllers\EntriesController;
 use App\Controllers\GeneralController;
 use App\Controllers\UserController;
 use App\Middleware\AuthKeyMiddleware;
@@ -38,9 +38,9 @@ $middleware->create(['middleware' => [AuthMiddleware::class]], static function (
 });
 
 $middleware->create(['prefix' => '/api', 'middleware' => [AuthKeyMiddleware::class]], static function () use ($route, $middleware): void {
-    $route->get('', [DrinksController::class, 'index']);
+    $route->get('', [EntriesController::class, 'index']);
 
     $middleware->create(['middleware' => [JsonMiddleware::class]], static function () use ($route): void {
-        $route->post('', [DrinksController::class, 'create']);
+        $route->post('', [EntriesController::class, 'create']);
     });
 });
