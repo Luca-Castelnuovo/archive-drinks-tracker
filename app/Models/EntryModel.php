@@ -11,6 +11,34 @@ final class EntryModel
     /**
      * Get entries on specific day
      */
+    public static function getAll(string $userId)
+    {
+        $entriesDB = DB::select(
+            table: 'entries',
+            columns: [
+                'water [Int]',
+                'bier [Int]',
+                'shot [Int]',
+                'barf [Int]',
+                'created_at'
+            ],
+            where: [
+                'user_id' => $userId,
+                'ORDER' => [
+                    'id' => 'DESC'
+                ]
+            ]
+        ) ?? [];
+
+        // Order entries by time
+        usort($entriesDB, fn ($a, $b) => strcmp($a['created_at'], $b['created_at']));
+
+        return $entriesDB;
+    }
+
+    /**
+     * Get entries on specific day
+     */
     public static function getOnDay(string $userId, string $date)
     {
         $entriesDB = DB::select(
@@ -35,7 +63,7 @@ final class EntryModel
 
         foreach ($entriesDB as $entry) {
             $time = date(
-                format: 'H:i',
+                format: 'H:i:s',
                 timestamp: strtotime(datetime: $entry['created_at'])
             );
 

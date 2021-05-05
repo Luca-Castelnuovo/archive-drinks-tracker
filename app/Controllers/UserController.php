@@ -31,9 +31,9 @@ final class UserController extends Controller
                 'last' => UserModel::getLast(
                     userId: $userId
                 ),
-                'entries' => EntryModel::getOnDay(
+                'entries' => EntryModel::getAll(
                     userId: $userId,
-                    date: date('Y-m-d')
+                    // date: date('Y-m-d', strtotime("-1 days"))
                 )
             ]
         );

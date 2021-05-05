@@ -31,9 +31,8 @@ final class EntriesController extends Controller
                 'last' => UserModel::getLast(
                     userId: $this->request->authKeyUserId
                 ),
-                'entries' => EntryModel::getOnDay(
+                'entries' => EntryModel::getAll(
                     userId: $this->request->authKeyUserId,
-                    date: $date
                 )
             ]
         );
