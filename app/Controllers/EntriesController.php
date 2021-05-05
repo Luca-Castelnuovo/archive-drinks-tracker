@@ -20,10 +20,8 @@ final class EntriesController extends Controller
      */
     public function index(): JsonResponse
     {
-        $date = date('Y-m-d');
-
         return Respond::prettyJson(
-            message: "Entries on: {$date}",
+            message: "All entries",
             data: [
                 'count' => UserModel::getCount(
                     userId: $this->request->authKeyUserId
