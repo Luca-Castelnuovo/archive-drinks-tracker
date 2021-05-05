@@ -10,7 +10,6 @@ use CQ\Crypto\Token;
 use CQ\Helpers\AuthHelper;
 use CQ\Helpers\ConfigHelper;
 use CQ\Response\HtmlResponse;
-use CQ\Response\JsonResponse;
 use CQ\Response\Respond;
 
 final class UserController extends Controller
@@ -18,7 +17,7 @@ final class UserController extends Controller
     /**
      * Dashboard screen.
      */
-    public function dashboard(): HtmlResponse|JsonResponse
+    public function dashboard(): HtmlResponse
     {
         $userId = AuthHelper::getUser()->getId();
 
@@ -38,7 +37,7 @@ final class UserController extends Controller
         );
     }
 
-    public function createAuthKey(): JsonResponse
+    public function installation(): HtmlResponse
     {
         $authKey = Token::create(
             key: ConfigHelper::get('app.key'),
@@ -47,9 +46,11 @@ final class UserController extends Controller
             ]
         );
 
-        return Respond::prettyJson(
-            message: 'authKey created successfully',
-            data: $authKey
+        return Respond::twig(
+            view: 'installation.twig',
+            parameters: [
+                'authKey' => $authKey
+            ]
         );
     }
 }

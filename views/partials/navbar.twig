@@ -6,8 +6,11 @@
             <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down">
-            <li>
-                <a href="/authkey">Create authKey</a>
+            <li class="{{ title == "Dashboard" ? 'active' : '' }}">
+                <a href="/dashboard">Dashboard</a>
+            </li>
+            <li class="{{ title == "Installation" ? 'active' : '' }}">
+                <a href="/installation">Installation</a>
             </li>
             <li>
                 <a href="/auth/logout">Logout</a>
@@ -16,8 +19,11 @@
     </div>
 
     <ul class="sidenav" id="sidenav">
-        <li>
-            <a href="/authkey">Create authKey</a>
+        <li class="{{ title == "Dashboard" ? 'active' : '' }}">
+            <a href="/dashboard">Dashboard</a>
+        </li>
+        <li class="{{ title == "Installation" ? 'active' : '' }}">
+            <a href="/installation">Installation</a>
         </li>
         <li>
             <a href="/auth/logout">Logout</a>
