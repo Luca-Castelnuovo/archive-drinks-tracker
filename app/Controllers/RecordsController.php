@@ -19,9 +19,8 @@ final class RecordsController extends Controller
      */
     public function index(): JsonResponse
     {
-        // TODO: startDate= (optional) & endDate= (optional)
-        $startDate = $_GET['startDate'] ?: '2020-11-26 00:00:00';
-        $endDate = $_GET['endDate'] ?: date('Y-m-d H:i:s');
+        $startDate = $this->requestHelper->getQueryParam('startDate') ?: '2020-11-26';
+        $endDate = $this->requestHelper->getQueryParam('endDate') ?: date('Y-m-d');
 
         return Respond::prettyJson(
             message: "Entries between {$startDate} and {$endDate}",

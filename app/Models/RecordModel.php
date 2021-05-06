@@ -24,7 +24,7 @@ final class RecordModel
             ],
             where: [
                 'user_id' => $userId,
-                'created_at[<>]' => [$startDate, $endDate],
+                'created_at[<>]' => ["{$startDate} 00:00:00", "{$endDate} 23:59:59"],
             ]
         );
 
@@ -121,7 +121,7 @@ final class RecordModel
             where: [
                 'user_id' => $userId,
                 'type' => $type,
-                'created_at[<>]' => [$startDate, $endDate],
+                'created_at[<>]' => ["{$startDate} 00:00:00", "{$endDate} 23:59:59"],
             ]
         );
     }

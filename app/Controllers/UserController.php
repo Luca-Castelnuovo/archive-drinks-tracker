@@ -20,10 +20,8 @@ final class UserController extends Controller
     public function dashboard(): HtmlResponse
     {
         $userId = AuthHelper::getUser()->getId();
-
-        // TODO: startDate= (optional) & endDate= (optional)
-        $startDate = $_GET['startDate'] ?: '2020-11-26 00:00:00';
-        $endDate = $_GET['endDate'] ?: date('Y-m-d H:i:s');
+        $startDate = $this->requestHelper->getQueryParam('startDate') ?: '2020-11-26';
+        $endDate = $this->requestHelper->getQueryParam('endDate') ?: date('Y-m-d');
 
         return Respond::twig(
             view: 'dashboard.twig',
