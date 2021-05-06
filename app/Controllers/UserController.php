@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\EntryModel;
-use App\Models\UserModel;
+use App\Models\RecordModel;
 use CQ\Controllers\Controller;
 use CQ\Crypto\Token;
 use CQ\Helpers\AuthHelper;
@@ -22,18 +21,25 @@ final class UserController extends Controller
     {
         $userId = AuthHelper::getUser()->getId();
 
+        // TODO: startDate= (optional) & endDate= (optional)
+        $startDate = $_GET['startDate'] ?: '2020-11-26 00:00:00';
+        $endDate = $_GET['endDate'] ?: date('Y-m-d H:i:s');
+
         return Respond::twig(
             view: 'dashboard.twig',
             parameters: [
-                'count' => UserModel::getCount(
-                    userId: $userId
-                ),
-                'last' => UserModel::getLast(
-                    userId: $userId
-                ),
-                'entries' => EntryModel::getAll(
+                'records' => RecordModel::get(
                     userId: $userId,
-                    // date: date('Y-m-d', strtotime("-1 days"))
+                    startDate: $startDate,
+                    endDate: $endDate
+                ),
+                'last' => RecordModel::getLastAllTypes(
+                    userId: $userId
+                ),
+                'count' => RecordModel::getCountAllTypes(
+                    userId: $userId,
+                    startDate: $startDate,
+                    endDate: $endDate
                 )
             ]
         );
@@ -47,6 +53,8 @@ final class UserController extends Controller
                 'user_id' => AuthHelper::getUser()->getId(),
             ]
         );
+
+        // TODO: finish installation instructions
 
         return Respond::twig(
             view: 'installation.twig',

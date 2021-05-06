@@ -2,7 +2,7 @@
 
 use CQ\DB\Seeder;
 
-class UsersSeeder extends Seeder
+class RecordsSeeder extends Seeder
 {
     /**
      * Run Method.
@@ -20,24 +20,13 @@ class UsersSeeder extends Seeder
         for ($i = 0; $i < 5; ++$i) {
             $data[] = [
                 'id' => $faker->uuid,
-
-                // 'water_count' => 0,
-                // 'water_last_at' => null,
-
-                // 'bier_count' => 0,
-                // 'bier_last_at' => null,
-
-                // 'shot_count' => 0,
-                // 'shot_last_at' => null,
-
-                // 'barf_count' => 0,
-                // 'barf_last_at' => null,
-
+                'user_id' => $faker->uuid,
+                'type' => 'shot',
                 'updated_at' => date('Y-m-d H:i:s'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
         }
 
-        $this->table('users')->insert($data)->saveData();
+        $this->table('records')->insert($data)->saveData();
     }
 }

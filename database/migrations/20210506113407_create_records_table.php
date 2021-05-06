@@ -2,7 +2,7 @@
 
 use CQ\DB\Migration;
 
-final class CreateEntriesTable extends Migration
+final class CreateRecordsTable extends Migration
 {
     /**
      * Change Method.
@@ -31,25 +31,10 @@ final class CreateEntriesTable extends Migration
      */
     public function change()
     {
-        $entries = $this->table('entries', ['id' => false, 'primary_key' => 'id']);
-        $entries->addColumn('id', 'uuid')
+        $records = $this->table('records', ['id' => false, 'primary_key' => 'id']);
+        $records->addColumn('id', 'uuid')
             ->addColumn('user_id', 'uuid')
-            ->addColumn('water', 'integer', [
-                'default' => 0,
-                'null' => false
-            ])
-            ->addColumn('bier', 'integer', [
-                'default' => 0,
-                'null' => false
-            ])
-            ->addColumn('shot', 'integer', [
-                'default' => 0,
-                'null' => false
-            ])
-            ->addColumn('barf', 'integer', [
-                'default' => 0,
-                'null' => false
-            ])
+            ->addColumn('type', 'string', ['null' => false])
             ->addColumn('updated_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->create();

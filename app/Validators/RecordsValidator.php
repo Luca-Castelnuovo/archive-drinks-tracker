@@ -7,7 +7,7 @@ namespace App\Validators;
 use CQ\Validators\Validator;
 use Respect\Validation\Validator as v;
 
-final class EntriesValidator extends Validator
+final class RecordsValidator extends Validator
 {
     /**
      * Validate json submission.

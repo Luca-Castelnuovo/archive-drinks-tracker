@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Controllers\AuthWebhookController;
-use App\Controllers\EntriesController;
 use App\Controllers\GeneralController;
+use App\Controllers\RecordsController;
 use App\Controllers\UserController;
 use App\Middleware\AuthKeyMiddleware;
 use CQ\Controllers\AuthCodeController;
@@ -38,9 +38,9 @@ $middleware->create(['middleware' => [AuthMiddleware::class]], static function (
 });
 
 $middleware->create(['prefix' => '/api', 'middleware' => [AuthKeyMiddleware::class]], static function () use ($route, $middleware): void {
-    $route->get('', [EntriesController::class, 'index']);
+    $route->get('', [RecordsController::class, 'index']);
 
     $middleware->create(['middleware' => [JsonMiddleware::class]], static function () use ($route): void {
-        $route->post('', [EntriesController::class, 'create']);
+        $route->post('', [RecordsController::class, 'create']);
     });
 });
