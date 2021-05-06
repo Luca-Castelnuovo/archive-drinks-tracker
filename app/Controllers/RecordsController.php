@@ -70,8 +70,7 @@ final class RecordsController extends Controller
         );
 
         return Respond::prettyJson(
-            message: 'Record created',
-            data: $record
+            message: 'Record created'
         );
     }
 }
