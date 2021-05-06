@@ -25,7 +25,7 @@ const entriesDatasets = [];
 Object.entries(labels).forEach(([label, color]) => {
     entriesDatasets.push({
         label: label,
-        data: _entries,
+        data: _records,
         parsing: {
             xAxisKey: 'created_at',
             yAxisKey: label.toLowerCase()

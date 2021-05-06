@@ -46,6 +46,10 @@
 
 {# TODO: Make type and date selector #}
 
+{# startDate picker #}
+{# endDate picker #}
+{# https://materializecss.com/pickers.html #}
+
 <div class="row">
     <div class="col s12">
         <h3>All entries</h3>
@@ -55,7 +59,7 @@
 
 <script>
     window._count = {{ count | json_encode() | raw }}
-    window._entries = {{ entries | json_encode() | raw }}
+    window._records = {{ records | json_encode() | raw }}
 </script>
 
 {% endblock %}
