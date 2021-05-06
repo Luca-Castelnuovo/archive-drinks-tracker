@@ -28,9 +28,4 @@ $cli->command('make:seed name', [new CQ\CLI\Make(), 'seed'])
         'name' => 'Name of seeder e.g. (UsersSeeder)',
     ]);
 
-$cli->command('authKey:create userId', [new App\Commands\AuthKey(), 'create'])
-    ->descriptions('Create authKey for authKeyMiddleware', [
-        'userId' => 'UserId to couple to authKey',
-    ]);
-
 $cli->run();
