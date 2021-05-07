@@ -8,15 +8,6 @@ use CQ\DB\DB;
 
 final class RecordModel
 {
-    private static function getEndDate(string $startDate, string $type): string
-    {
-        return match ($type) {
-            'day' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
-            'week' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
-            'month' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
-            default => date('Y-m-d')
-        };
-    }
 
     /**
      * Get entries in range
@@ -43,19 +34,19 @@ final class RecordModel
             ]
         );
 
-        if (!$records) {
+        if (! $records) {
             return [];
         }
 
-        $summarisedRecords = array_reduce(
+        return array_reduce(
             array: $records,
-            callback: function ($carry, $record) {
-                if (!$carry) {
+            callback: static function ($carry, $record) {
+                if (! $carry) {
                     $newValue = [
                         'water' => 0,
                         'bier' => 0,
                         'shot' => 0,
-                        'barf' => 0
+                        'barf' => 0,
                     ];
                 } else {
                     $newValue = end($carry);
@@ -70,8 +61,6 @@ final class RecordModel
             },
             initial: []
         );
-
-        return $summarisedRecords;
     }
 
     public static function getFirstDate(
@@ -98,7 +87,7 @@ final class RecordModel
             where: [
                 'user_id' => $userId,
                 'ORDER' => [
-                    'created_at' => 'ASC'
+                    'created_at' => 'ASC',
                 ],
             ]
         ) ?? [];
@@ -107,7 +96,7 @@ final class RecordModel
 
         foreach ($records as $record) {
             $date = date(
-                format: "Y-m-d",
+                format: 'Y-m-d',
                 timestamp: strtotime(
                     datetime: $record['created_at']
                 )
@@ -132,7 +121,7 @@ final class RecordModel
     public static function getLast(
         string $userId,
         string $type
-    ): string|null {
+    ): string | null {
         return DB::select(
             table: 'records',
             columns: [
@@ -142,9 +131,9 @@ final class RecordModel
                 'user_id' => $userId,
                 'type' => $type,
                 'ORDER' => [
-                    'id' => 'DESC'
+                    'id' => 'DESC',
                 ],
-                'LIMIT' => 1
+                'LIMIT' => 1,
             ]
         )[0]['created_at'] ?? null;
     }
@@ -227,5 +216,14 @@ final class RecordModel
                 type: 'barf'
             ),
         ];
+    }
+    private static function getEndDate(string $startDate, string $type): string
+    {
+        return match ($type) {
+            'day' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            'week' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            'month' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            default => date('Y-m-d')
+        };
     }
 }

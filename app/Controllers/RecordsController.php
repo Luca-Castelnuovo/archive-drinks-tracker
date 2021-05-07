@@ -37,7 +37,7 @@ final class RecordsController extends Controller
                     userId: $this->request->authKeyUserId,
                     startDate: $startDate,
                     type: $type
-                )
+                ),
             ]
         );
     }
@@ -60,7 +60,7 @@ final class RecordsController extends Controller
         $record = [
             'id' => UuidHelper::v6(),
             'user_id' => $this->request->authKeyUserId,
-            'type' => $this->request->data->type
+            'type' => $this->request->data->type,
         ];
 
         // Add record

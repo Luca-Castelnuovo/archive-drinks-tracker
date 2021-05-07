@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use CQ\DB\Migration;
 
 final class CreateRecordsTable extends Migration
@@ -29,7 +31,7 @@ final class CreateRecordsTable extends Migration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change()
+    public function change(): void
     {
         $records = $this->table('records', ['id' => false, 'primary_key' => 'id']);
         $records->addColumn('id', 'uuid')

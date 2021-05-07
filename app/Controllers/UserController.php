@@ -49,7 +49,7 @@ final class UserController extends Controller
                     userId: $userId,
                     startDate: $startDate,
                     type: $type
-                )
+                ),
             ]
         );
     }
@@ -68,7 +68,7 @@ final class UserController extends Controller
         return Respond::twig(
             view: 'installation.twig',
             parameters: [
-                'authKey' => $authKey
+                'authKey' => $authKey,
             ]
         );
     }

@@ -20,7 +20,7 @@ class DebugMiddleware extends Middleware
      */
     public function handleChild(Closure $next): Closure | HtmlResponse | JsonResponse | NoContentResponse | RedirectResponse
     {
-        if (!AppHelper::isDebug()) {
+        if (! AppHelper::isDebug()) {
             return Respond::prettyJson(
                 message: 'Only accessible in debug mode',
                 code: 403

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use CQ\DB\Seeder;
 
 class RecordsSeeder extends Seeder
@@ -12,7 +14,7 @@ class RecordsSeeder extends Seeder
      * More information on writing seeders is available here:
      * https://book.cakephp.org/phinx/0/en/seeding.html
      */
-    public function run()
+    public function run(): void
     {
         $faker = self::faker();
         $data = [];

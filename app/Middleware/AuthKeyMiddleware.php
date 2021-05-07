@@ -7,7 +7,6 @@ namespace App\Middleware;
 use Closure;
 use CQ\Crypto\Exceptions\TokenException;
 use CQ\Crypto\Token;
-use CQ\Helpers\ConfigHelper;
 use CQ\Middleware\Middleware;
 use CQ\Response\HtmlResponse;
 use CQ\Response\JsonResponse;
