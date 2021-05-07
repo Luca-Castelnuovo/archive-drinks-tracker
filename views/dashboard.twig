@@ -41,10 +41,23 @@
                 </tr>
             </tbody>
         </table>
+
+        <h3>Ratios</h3>
+        <table class="responsive-table">
+            <tbody>
+                <tr>
+                    <td>Drink / Barf</td>
+                    <td>
+                        <strong>{{ count.barf ? count.bier + count.shot / count.barf : 'No barf yet' }}</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 {# TODO: Make type and date selector #}
+{# make ez btns for current day, current week, current month, all time #}
 
 {# startDate picker #}
 {# endDate picker #}
