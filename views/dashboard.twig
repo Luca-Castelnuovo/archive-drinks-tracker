@@ -12,6 +12,34 @@
     <div class="col m2"></div>
 
     <div class="col s12 m5">
+        <h3>Options</h3>
+        <div class="col s12 m6">
+            <div class="input-field">
+                <select name="view_type">
+                    <option value="day" {{ type == 'day' ? 'selected' : '' }}>Day</option>
+                    <option value="week" {{ type == 'week' ? 'selected' : '' }}>Week</option>
+                    <option value="month" {{ type == 'month' ? 'selected' : '' }}>Month</option>
+                    <option value="all" {{ type == 'all' ? 'selected' : '' }}>All</option>
+                </select>
+                <label>View type</label>
+            </div>
+        </div>
+
+        <div class="col s12 m6">
+            <div class="input-field">
+                <select name="start_date">
+                    {% if not dates %}
+                        <option disabled selected>No records found</option>
+                    {% endif %}
+
+                    {% for date in dates %}
+                        <option value="{{date}}" {{ start_date == date ? 'selected' : '' }}>{{date|date("F d, Y")}}</option>
+                    {% endfor %}
+                </select>
+                <label>Start date</label>
+            </div>
+        </div>
+
         <h3>Last</h3>
         <table class="responsive-table">
             <tbody>
@@ -56,16 +84,10 @@
     </div>
 </div>
 
-{# TODO: Make type and date selector #}
-{# make ez btns for current day, current week, current month, all time #}
-
-{# startDate picker #}
-{# endDate picker #}
-{# https://materializecss.com/pickers.html #}
+<div class="row"></div>
 
 <div class="row">
     <div class="col s12">
-        <h3>All entries</h3>
         <canvas id="entriesGraph"></canvas>
     </div>
 </div>

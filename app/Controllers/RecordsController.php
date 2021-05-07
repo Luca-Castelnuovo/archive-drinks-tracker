@@ -20,15 +20,15 @@ final class RecordsController extends Controller
     public function index(): JsonResponse
     {
         $startDate = $this->requestHelper->getQueryParam('startDate') ?: '2020-11-26';
-        $endDate = $this->requestHelper->getQueryParam('endDate') ?: date('Y-m-d');
+        $type = $this->requestHelper->getQueryParam('type') ?: 'week';
 
         return Respond::prettyJson(
-            message: "Entries between {$startDate} and {$endDate}",
+            message: "Entries starting at {$startDate} type {$type}",
             data: [
                 'records' => RecordModel::get(
                     userId: $this->request->authKeyUserId,
                     startDate: $startDate,
-                    endDate: $endDate
+                    type: $type
                 ),
                 'last' => RecordModel::getLastAllTypes(
                     userId: $this->request->authKeyUserId
@@ -36,7 +36,7 @@ final class RecordsController extends Controller
                 'count' => RecordModel::getCountAllTypes(
                     userId: $this->request->authKeyUserId,
                     startDate: $startDate,
-                    endDate: $endDate
+                    type: $type
                 )
             ]
         );

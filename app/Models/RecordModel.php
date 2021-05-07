@@ -8,14 +8,29 @@ use CQ\DB\DB;
 
 final class RecordModel
 {
+    private static function getEndDate(string $startDate, string $type): string
+    {
+        return match ($type) {
+            'day' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            'week' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            'month' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            default => date('Y-m-d')
+        };
+    }
+
     /**
      * Get entries in range
      */
     public static function get(
         string $userId,
         string $startDate,
-        string $endDate
+        string $type
     ): array {
+        $endDate = self::getEndDate(
+            startDate: $startDate,
+            type: $type
+        );
+
         $records = DB::select(
             table: 'records',
             columns: [
@@ -57,6 +72,58 @@ final class RecordModel
         );
 
         return $summarisedRecords;
+    }
+
+    public static function getFirstDate(
+        string $userId
+    ): string {
+        $dates = self::getDates(
+            userId: $userId
+        );
+
+        return $dates[0] ?? '2020-11-26';
+    }
+
+    /**
+     * Get all unique record dates
+     */
+    public static function getDates(
+        string $userId
+    ): array {
+        $records = DB::select(
+            table: 'records',
+            columns: [
+                'created_at',
+            ],
+            where: [
+                'user_id' => $userId,
+                'ORDER' => [
+                    'created_at' => 'ASC'
+                ],
+            ]
+        ) ?? [];
+
+        $created_at_array = [];
+
+        foreach ($records as $record) {
+            $date = date(
+                format: "Y-m-d",
+                timestamp: strtotime(
+                    datetime: $record['created_at']
+                )
+            );
+
+            if (in_array(
+                needle: $date,
+                haystack: $created_at_array
+            )) {
+                continue;
+            }
+
+            $created_at_array[] = $date;
+        }
+
+        return $created_at_array;
     }
 
     /**
@@ -112,10 +179,14 @@ final class RecordModel
      */
     public static function getCount(
         string $userId,
-        string $type,
         string $startDate,
-        string $endDate
+        string $type
     ): int {
+        $endDate = self::getEndDate(
+            startDate: $startDate,
+            type: $type
+        );
+
         return DB::count(
             table: 'records',
             where: [
@@ -132,32 +203,28 @@ final class RecordModel
     public static function getCountAllTypes(
         string $userId,
         string $startDate,
-        string $endDate
+        string $type
     ): array {
         return [
             'water' => self::getCount(
                 userId: $userId,
-                type: 'water',
                 startDate: $startDate,
-                endDate: $endDate
+                type: 'water'
             ),
             'bier' => self::getCount(
                 userId: $userId,
-                type: 'bier',
                 startDate: $startDate,
-                endDate: $endDate
+                type: 'bier'
             ),
             'shot' => self::getCount(
                 userId: $userId,
-                type: 'shot',
                 startDate: $startDate,
-                endDate: $endDate
+                type: 'shot'
             ),
             'barf' => self::getCount(
                 userId: $userId,
-                type: 'barf',
                 startDate: $startDate,
-                endDate: $endDate
+                type: 'barf'
             ),
         ];
     }

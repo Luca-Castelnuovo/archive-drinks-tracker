@@ -20,16 +20,27 @@ final class UserController extends Controller
     public function dashboard(): HtmlResponse
     {
         $userId = AuthHelper::getUser()->getId();
-        $startDate = $this->requestHelper->getQueryParam('startDate') ?: '2020-11-26';
-        $endDate = $this->requestHelper->getQueryParam('endDate') ?: date('Y-m-d');
+        $dates = RecordModel::getDates(
+            userId: $userId
+        );
+
+        $defaultStartDate = RecordModel::getFirstDate(
+            userId: $userId
+        );
+
+        $startDate = $this->requestHelper->getQueryParam('startDate') ?: $defaultStartDate;
+        $type = $this->requestHelper->getQueryParam('type') ?: 'week';
 
         return Respond::twig(
             view: 'dashboard.twig',
             parameters: [
+                'type' => $type,
+                'start_date' => $startDate,
+                'dates' => $dates,
                 'records' => RecordModel::get(
                     userId: $userId,
                     startDate: $startDate,
-                    endDate: $endDate
+                    type: $type
                 ),
                 'last' => RecordModel::getLastAllTypes(
                     userId: $userId
@@ -37,7 +48,7 @@ final class UserController extends Controller
                 'count' => RecordModel::getCountAllTypes(
                     userId: $userId,
                     startDate: $startDate,
-                    endDate: $endDate
+                    type: $type
                 )
             ]
         );
