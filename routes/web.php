@@ -12,7 +12,6 @@ use CQ\Controllers\AuthCodeController;
 use CQ\Controllers\AuthDeviceController;
 use CQ\Middleware\AuthMiddleware;
 use CQ\Middleware\JsonMiddleware;
-use CQ\Middleware\RatelimitMiddleware;
 
 $route->get('/', [GeneralController::class, 'index']);
 
@@ -39,7 +38,7 @@ $middleware->create(['prefix' => '/api', 'middleware' => [AuthKeyMiddleware::cla
         $route->get('', [RecordsController::class, 'index']);
     });
 
-    $middleware->create(['middleware' => [RatelimitMiddleware::class, JsonMiddleware::class]], static function () use ($route): void {
+    $middleware->create(['middleware' => [JsonMiddleware::class]], static function () use ($route): void {
         $route->post('', [RecordsController::class, 'create']);
     });
 });
