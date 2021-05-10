@@ -88,12 +88,11 @@
 
 <div class="row">
     <div class="col s12">
-        <canvas id="entriesGraph"></canvas>
+        <canvas id="recordsGraph"></canvas>
     </div>
 </div>
 
 <script>
-    window._count = {{ count | json_encode() | raw }}
     window._records = {{ records | json_encode() | raw }}
 </script>
 

@@ -5,17 +5,33 @@ const labels = {
     Barf: '#FC6042'
 };
 
-const ctxCount = document.getElementById('countGraph').getContext('2d');
-const ctxEntries = document.getElementById('entriesGraph').getContext('2d');
 const viewType = document.querySelector('select[name="view_type"]');
 const startDate = document.querySelector('select[name="start_date"]');
+const filterUrl = e => {
+    if (viewType.value == 'all') {
+        if (e?.target?.value) {
+            return '';
+        }
 
-const entriesDatasets = [];
+        return window.location.replace('/dashboard?type=all');
+    }
+
+    return window.location.replace(
+        `/dashboard?startDate=${startDate.value}&type=${viewType.value}`
+    );
+}
+
+viewType.addEventListener("change", () => filterUrl());
+document.querySelector('select[name="start_date"]').addEventListener("change", e => filterUrl(e));
+
+const recordData = _records;
+const recordDatasets = [];
+const countData = recordData.slice(-1)[0];
 
 Object.entries(labels).forEach(([label, color]) => {
-    entriesDatasets.push({
+    recordDatasets.push({
         label: label,
-        data: _records,
+        data: recordData,
         parsing: {
             xAxisKey: 'created_at',
             yAxisKey: label.toLowerCase()
@@ -26,35 +42,20 @@ Object.entries(labels).forEach(([label, color]) => {
     });
 });
 
-viewType.addEventListener("change", () => {
-    if (viewType.value == 'all') {
-        return window.location.replace(`/dashboard?type=all`);
-    }
-
-    window.location.replace(`/dashboard?startDate=${startDate.value}&type=${viewType.value}`);
-});
-
-startDate.addEventListener("change", () => {
-    if (viewType.value == 'all') {
-        return window.location.replace(`/dashboard?type=all`);
-    }
-
-    window.location.replace(`/dashboard?startDate=${startDate.value}&type=${viewType.value}`);
-});
-
 document.addEventListener('DOMContentLoaded', function () {
     M.FormSelect.init(
         document.querySelectorAll('select'),
         {}
     );
 
+    const ctxCount = document.getElementById('countGraph').getContext('2d');
     new Chart(ctxCount, {
         type: 'doughnut',
         data: {
             labels: [...Object.keys(labels)],
             datasets: [
                 {
-                    data: [...Object.values(_count)],
+                    data: [...Object.values(countData)],
                     backgroundColor: [...Object.values(labels)],
                     hoverOffset: 4
                 }
@@ -62,9 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    new Chart(ctxEntries, {
+    const ctxRecords = document.getElementById('recordsGraph').getContext('2d');
+    new Chart(ctxRecords, {
         type: 'line',
-        data: { datasets: entriesDatasets },
+        data: { datasets: recordDatasets },
         options: {
             scales: {
                 y: {

@@ -34,14 +34,14 @@ final class RecordModel
             ]
         );
 
-        if (! $records) {
+        if (!$records) {
             return [];
         }
 
         return array_reduce(
             array: $records,
             callback: static function ($carry, $record) {
-                if (! $carry) {
+                if (!$carry) {
                     $newValue = [
                         'water' => 0,
                         'bier' => 0,
@@ -163,66 +163,12 @@ final class RecordModel
         ];
     }
 
-    /**
-     * Get count in range for type
-     */
-    public static function getCount(
-        string $userId,
-        string $startDate,
-        string $type
-    ): int {
-        $endDate = self::getEndDate(
-            startDate: $startDate,
-            type: $type
-        );
-
-        return DB::count(
-            table: 'records',
-            where: [
-                'user_id' => $userId,
-                'type' => $type,
-                'created_at[<>]' => ["{$startDate} 00:00:00", "{$endDate} 23:59:59"],
-            ]
-        );
-    }
-
-    /**
-     * Get count in range for all types
-     */
-    public static function getCountAllTypes(
-        string $userId,
-        string $startDate,
-        string $type
-    ): array {
-        return [
-            'water' => self::getCount(
-                userId: $userId,
-                startDate: $startDate,
-                type: 'water'
-            ),
-            'bier' => self::getCount(
-                userId: $userId,
-                startDate: $startDate,
-                type: 'bier'
-            ),
-            'shot' => self::getCount(
-                userId: $userId,
-                startDate: $startDate,
-                type: 'shot'
-            ),
-            'barf' => self::getCount(
-                userId: $userId,
-                startDate: $startDate,
-                type: 'barf'
-            ),
-        ];
-    }
     private static function getEndDate(string $startDate, string $type): string
     {
         return match ($type) {
-            'day' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
-            'week' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
-            'month' => date('Y-m-d', strtotime($startDate . ' + 1 days')),
+            'day' => date('Y-m-d', strtotime($startDate . ' + 0 days')),
+            'week' => date('Y-m-d', strtotime($startDate . ' + 7 days')),
+            'month' => date('Y-m-d', strtotime($startDate . ' + 30 days')),
             default => date('Y-m-d')
         };
     }

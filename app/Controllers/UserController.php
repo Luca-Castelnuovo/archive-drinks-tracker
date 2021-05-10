@@ -44,12 +44,7 @@ final class UserController extends Controller
                 ),
                 'last' => RecordModel::getLastAllTypes(
                     userId: $userId
-                ),
-                'count' => RecordModel::getCountAllTypes(
-                    userId: $userId,
-                    startDate: $startDate,
-                    type: $type
-                ),
+                )
             ]
         );
     }
