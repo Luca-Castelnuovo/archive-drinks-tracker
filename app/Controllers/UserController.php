@@ -58,8 +58,6 @@ final class UserController extends Controller
             ]
         );
 
-        // TODO: finish installation instructions
-
         return Respond::twig(
             view: 'installation.twig',
             parameters: [
