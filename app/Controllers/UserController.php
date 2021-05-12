@@ -62,6 +62,7 @@ final class UserController extends Controller
             view: 'installation.twig',
             parameters: [
                 'authKey' => $authKey,
+                'shortcuts' => ConfigHelper::get('shortcuts')
             ]
         );
     }

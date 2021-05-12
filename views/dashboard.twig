@@ -3,97 +3,99 @@
 {% set page_script = "/assets/js/dashboard.js?v=2" %}
 
 {% block content %}
-<div class="row">
-    <div class="col s12 m5">
-        <h3>Count</h3>
-        <canvas id="countGraph"></canvas>
-    </div>
-
-    <div class="col m2"></div>
-
-    <div class="col s12 m5">
-        <h3>Options</h3>
-        <div class="col s12 m6">
-            <div class="input-field">
-                <select name="view_type">
-                    <option value="day" {{ type == 'day' ? 'selected' : '' }}>Day</option>
-                    <option value="week" {{ type == 'week' ? 'selected' : '' }}>Week</option>
-                    <option value="month" {{ type == 'month' ? 'selected' : '' }}>Month</option>
-                    <option value="all" {{ type == 'all' ? 'selected' : '' }}>All</option>
-                </select>
-                <label>View type</label>
+    <div class="row">
+        <div class="col s12 m5">
+            <h3>Count</h3>
+            <canvas id="countGraph"></canvas>
+        </div>
+        <div class="col m2"></div>
+        <div class="col s12 m5">
+            <div class="row">
+                <div class="col s12">
+                    <h3>Options</h3>
+                </div>
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <select name="view_type">
+                            <option value="day" {{ type == 'day' ? 'selected' : '' }}>Day</option>
+                            <option value="week" {{ type == 'week' ? 'selected' : '' }}>Week</option>
+                            <option value="month" {{ type == 'month' ? 'selected' : '' }}>Month</option>
+                            <option value="all" {{ type == 'all' ? 'selected' : '' }}>All</option>
+                        </select>
+                        <label>View type</label>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="input-field">
+                        <select name="start_date">
+                            {% if not dates %}
+                                <option disabled selected>No records found</option>
+                            {% endif %}
+                            {% for date in dates %}
+                                <option value="{{date}}" {{ start_date == date ? 'selected' : '' }}>{{date|date("F d, Y")}}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Start date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h3>Last</h3>
+                    <table class="responsive-table">
+                        <tbody>
+                            <tr>
+                                <td>Water</td>
+                                <td>
+                                    <strong>{{ last.water ? last.water|date("F d, Y - H:i") :'Not found' }}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bier</td>
+                                <td>
+                                    <strong>{{ last.bier ? last.bier|date("F d, Y - H:i") :'Not found' }}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Shot</td>
+                                <td>
+                                    <strong>{{ last.shot ? last.shot|date("F d, Y - H:i") :'Not found' }}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Barf</td>
+                                <td>
+                                    <strong>{{ last.barf ? last.barf|date("F d, Y - H:i") :'Not found' }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h3>Ratios</h3>
+                    <table class="responsive-table">
+                        <tbody>
+                            <tr>
+                                <td>Drink / Barf</td>
+                                <td>
+                                    <strong>{{ count.barf ? count.bier + count.shot / count.barf : 'No barf yet' }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
-        <div class="col s12 m6">
-            <div class="input-field">
-                <select name="start_date">
-                    {% if not dates %}
-                        <option disabled selected>No records found</option>
-                    {% endif %}
-
-                    {% for date in dates %}
-                        <option value="{{date}}" {{ start_date == date ? 'selected' : '' }}>{{date|date("F d, Y")}}</option>
-                    {% endfor %}
-                </select>
-                <label>Start date</label>
-            </div>
+    </div>
+    <div class="row"></div>
+    <div class="row">
+        <div class="col s12">
+            <canvas id="recordsGraph"></canvas>
         </div>
-
-        <h3>Last</h3>
-        <table class="responsive-table">
-            <tbody>
-                <tr>
-                    <td>Water</td>
-                    <td>
-                        <strong>{{ last.water ? last.water|date("F d, Y - H:i") :'Not found' }}</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Bier</td>
-                    <td>
-                        <strong>{{ last.bier ? last.bier|date("F d, Y - H:i") :'Not found' }}</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Shot</td>
-                    <td>
-                        <strong>{{ last.shot ? last.shot|date("F d, Y - H:i") :'Not found' }}</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Barf</td>
-                    <td>
-                        <strong>{{ last.barf ? last.barf|date("F d, Y - H:i") :'Not found' }}</strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Ratios</h3>
-        <table class="responsive-table">
-            <tbody>
-                <tr>
-                    <td>Drink / Barf</td>
-                    <td>
-                        <strong>{{ count.barf ? count.bier + count.shot / count.barf : 'No barf yet' }}</strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-</div>
-
-<div class="row"></div>
-
-<div class="row">
-    <div class="col s12">
-        <canvas id="recordsGraph"></canvas>
-    </div>
-</div>
-
-<script>
-    window._records = {{ records | json_encode() | raw }}
-</script>
-
+    <script>
+        window._records = {{ records | json_encode() | raw }}
+    </script>
 {% endblock %}
