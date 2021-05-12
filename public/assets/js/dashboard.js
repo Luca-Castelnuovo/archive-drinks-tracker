@@ -13,12 +13,10 @@ const filterUrl = e => {
             return '';
         }
 
-        return window.location.replace('/dashboard?type=all');
+        return window.location.href = '/dashboard?type=all';
     }
 
-    return window.location.replace(
-        `/dashboard?startDate=${startDate.value}&type=${viewType.value}`
-    );
+    return window.location.href = `/dashboard?startDate=${startDate.value}&type=${viewType.value}`;
 }
 
 viewType.addEventListener("change", () => filterUrl());
