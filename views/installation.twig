@@ -6,23 +6,27 @@
         <div class="col s12">
             <h1>Installation</h1>
 
+            {# TODO: optimize images #}
+
             {# Desktop view #}
             <ul class="hide-on-small-only">
-                <li>
+                <li class="row">
                     <p class="flow-text">
                         <b>Step 1:</b> Open <a href="{{app.url}}">{{app.url}}</a> on mobile
                     </p>
 
                     <img class="responsive-img" width="25%" src="assets/images/step1.png">
                 </li>
-                <li>
+
+                <li class="row">
                     <p class="flow-text">
                         <b>Step 2:</b> Login or register
                     </p>
 
                     <img class="responsive-img" width="25%" src="assets/images/step2.png">
                 </li>
-                <li>
+
+                <li class="row">
                     <p class="flow-text">
                        <b>Step 3:</b> Open menu and open installation
                     </p>
@@ -39,18 +43,87 @@
                 </li>
             </ul>
 
-            {# Mobile view #}
+            {# Mobile view - check for android or ios #}
             <ul class="hide-on-med-and-up">
+                <li class="row">
+                    <p class="flow-text">
+                        <b>Step 1:</b> Open settings
+                    </p>
+
+                    <img class="responsive-img" width="50%" src="assets/images/step4.png">
+                </li>
+
+                <li class="row">
+                    <p class="flow-text">
+                        <b>Step 2:</b> Search for shortcuts
+                    </p>
+
+                    <div class="row">
+                        <img class="responsive-img" width="50%" src="assets/images/step5a.png">
+                    </div>
+
+                    <div class="row"></div>
+
+                    <div class="row">
+                        <img class="responsive-img" width="50%" src="assets/images/step5b.png">
+                    </div>
+                </li>
+
+                <li class="row">
+                    <p class="flow-text">
+                        <b>Step 3:</b> Allow untrusted shortcuts
+                    </p>
+
+                    <div class="row">
+                        <img class="responsive-img" width="50%" src="assets/images/step6a.png">
+                    </div>
+
+                    <div class="row"></div>
+
+                    <div class="row">
+                        <img class="responsive-img" width="50%" src="assets/images/step6b.png">
+                    </div>
+                </li>
+
                 <li>
                     <p class="flow-text">
-                        <b>Step 4:</b> <a class="waves-effect waves-light btn blue accent-4" href="{{shortcuts.water}}" target="_blank">Download shortcut</a>
+                        <b>Step 4:</b> Copy key
                     </p>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel">
+                                <p>{{ authKey }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </li>
+
                 <li>
                     <p class="flow-text">
-                        {# Step 2: Copy authKey: {{authKey}} #}
+                        <b>Step 5:</b> Download desired shortcuts
                     </p>
+
+                    <ul>
+                        <li class="row">
+                            <a class="waves-effect waves-light btn green accent-4" href="{{shortcuts.water}}" target="_blank">Download water shortcut</a>
+                        </li>
+
+                        <li class="row">
+                            <a class="waves-effect waves-light btn yellow accent-4" href="{{shortcuts.bier}}" target="_blank">Download bier shortcut</a>
+                        </li>
+
+                        <li class="row">
+                            <a class="waves-effect waves-light btn red accent-4" href="{{shortcuts.shot}}" target="_blank">Download shot shortcut</a>
+                        </li>
+
+                        <li class="row">
+                            <a class="waves-effect waves-light btn grey accent-4" href="{{shortcuts.barf}}" target="_blank">Download barf shortcut</a>
+                        </li>
+                    </ul>
                 </li>
+
+                {# click on allow untrusted #}
             </ul>
         </div>
     </div>
